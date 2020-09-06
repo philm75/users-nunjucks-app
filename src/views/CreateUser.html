@@ -1,0 +1,89 @@
+{% extends "Layout.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block content %}
+
+  {{ 
+    govukBackLink({
+      text: "Back",
+      href: "/users"
+    }) 
+  }}
+
+  {% if errors %}
+
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errors.errorsList
+    }) }}
+
+  {% endif %}
+
+  <form action="/users" method="post">
+
+    {% call govukFieldset({
+      legend: {
+        text: "Create User",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
+    
+      {{ govukInput({
+        label: {
+          text: "First name"
+        },
+        classes: "govuk-!-width-two-thirds",      
+        id: "first-name",
+        name: "firstName",
+        errorMessage: errors.firstName,
+        value: user.firstName
+      }) }}
+    
+      {{ govukInput({
+        label: {
+          text: "Last name"
+        },
+        classes: "govuk-!-width-two-thirds",      
+        id: "last-name",
+        name: "lastName",
+        errorMessage: errors.lastName,
+        value: user.lastName
+      }) }}
+    
+      {{ govukInput({
+        label: {
+          text: "Email"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "email",
+        name: "email",
+        errorMessage: errors.email,
+        value: user.email
+      }) }}
+    
+      {{ govukInput({
+        label: {
+          text: "Contact number"
+        },
+        classes: "govuk-!-width-one-third",
+        id: "contact-number",
+        name: "contact",
+        errorMessage: errors.contact,
+        value: user.contact        
+      }) }}
+      
+    {% endcall %}
+
+    {{ govukButton({
+      text: "Save",
+      preventDoubleClick: true,
+      type: "submit"
+    }) }}
+
+  </form>
+{% endblock %}

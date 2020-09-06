@@ -1,0 +1,27 @@
+{
+  "name": "nunjucks-users-app",
+  "version": "1.0.0",
+  "description": "Sample application using nunjucks",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/App.js",
+    "start-dev": "nodemon -e js,html,nj src/App.js",
+    "test": "npm test"
+  },
+  "author": "Phil Merrilees",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "express": "4.17.1",
+    "govuk-frontend": "3.8.1",
+    "mongoose": "5.10.1",
+    "nunjucks": "3.2.2",
+    "validator": "13.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.4",
+    "@babel/node": "7.10.5",
+    "@babel/preset-env": "7.11.0",
+    "nodemon": "2.0.4"
+  }
+}

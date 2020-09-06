@@ -1,0 +1,96 @@
+{% extends "Layout.html" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block content %}
+
+  {{ 
+    govukBackLink({
+      text: "Back",
+      href: "/users"
+    }) 
+  }}
+
+  {% if errors %}
+
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errors.errorsList
+    }) }}
+
+  {% endif %}
+
+  {% set heading = "Edit User " + user.id %}
+  {% set deleteAction = "/users/" + user.id + "/delete" %}
+
+  <form action="/users/edit" method="post">
+    {% 
+      call govukFieldset({
+      legend: {
+        text: heading,
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
+    
+      {{ govukInput({
+        label: {
+          text: "First name"
+        },
+        classes: "govuk-!-width-two-thirds",      
+        id: "first-name",
+        name: "firstName",
+        value: user.firstName
+      }) }}
+    
+      {{ govukInput({
+        label: {
+          text: "Last name"
+        },
+        classes: "govuk-!-width-two-thirds",      
+        id: "last-name",
+        name: "lastName",
+        value: user.lastName
+      }) }}
+    
+      {{ govukInput({
+        label: {
+          text: "Email"
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "email",
+        name: "email",
+        value: user.email
+      }) }}
+    
+      {{ govukInput({
+        label: {
+          text: "Contact number"
+        },
+        classes: "govuk-!-width-one-third",
+        id: "contact-number",
+        name: "contact",
+        value: user.contact
+      }) }}
+      
+    {% endcall %}
+
+    {{ govukButton({
+      text: "Save",
+      preventDoubleClick: true,
+      type: "submit"
+    }) }}
+
+    {{ govukButton({
+      text: "Delete user",
+      classes: "govuk-button--warning",
+      href: deleteAction,
+      preventDoubleClick: true
+    }) }}
+
+    <input type="hidden" name="id" value="{{ user.id }}" />
+  </form>
+{% endblock %}
